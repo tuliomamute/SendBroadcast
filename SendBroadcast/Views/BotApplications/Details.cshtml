@@ -1,0 +1,42 @@
+﻿@model SendBroadcast.Models.BotApplication
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BotApplication</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BotName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BotName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BotIdentifier)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BotIdentifier)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BotAccessToken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BotAccessToken)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.BotId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

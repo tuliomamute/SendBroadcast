@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SendBroadcast.Models.BotApplication>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BotName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BotIdentifier)
+        </th>
+        <th>Send Broadcast Message</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BotName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BotIdentifier)
+            </td>
+            <td>
+                @*@Html.ActionLink("Create", "Create", new { botApplication = item})*@
+                @Html.ActionLink("Create Broadcast", "Create", "Broadcast", item, null)
+            </td>
+        </tr>
+    }
+
+</table>
