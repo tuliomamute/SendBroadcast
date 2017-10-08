@@ -27,6 +27,8 @@ namespace SendBroadcast.Controllers
         public async Task<ActionResult> Create(BotApplication botApplication)
         {
             await ShowDistributionListAsync(botApplication.BotAuthorizationTokenApi);
+            ViewBag.AuthorizationToken = botApplication.BotAuthorizationTokenApi;
+
             return View();
         }
 
@@ -62,16 +64,47 @@ namespace SendBroadcast.Controllers
 
         // POST: Broadcast/Create
         [HttpPost]
-        public ActionResult Create(Broadcast collection)
+        public async Task<ActionResult> Create(Broadcast collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    db.Broadcasts.Add(collection);
+                    db.SaveChanges();
+
+                    await SendMessage(collection);
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
+            }
+        }
+
+        private async Task SendMessage(Broadcast collection)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", ViewBag.AuthorizationToken);
+
+                Message blipList = new Message
+                {
+                    to = collection.DistributionList,
+                    type = "text/plain",
+                    content = collection.Content
+                };
+
+                var stringContent = new StringContent(JsonConvert.SerializeObject(blipList), Encoding.UTF8, "application/json");
+
+                //HttpResponseMessage response = await client.GetAsync("/lists");
+                HttpResponseMessage response = await client.PostAsync($"{ConfigurationManager.AppSettings["BaseBliPUrl"]}/message", stringContent);
+
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception(await response.Content.ReadAsStringAsync());
             }
         }
     }

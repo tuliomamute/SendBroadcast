@@ -168,6 +168,7 @@
     <Compile Include="Models\BotApplication.cs" />
     <Compile Include="Models\Broadcast.cs" />
     <Compile Include="Models\Lists.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\SendBroadcastContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
