@@ -17,6 +17,8 @@ namespace SendBroadcast.Models
         public string Content { get; set; }
         [Display(Name = "Tipo da Mensagem")]
         public string ContentType { get; set; }
+        [Display(Name = "Data/Hora para envio")]
+        public DateTime DuoDate { get; set; }
         [ForeignKey("BotId")]
         public BotApplication BotApplication { get; set; }
         public int BotId { get; set; }

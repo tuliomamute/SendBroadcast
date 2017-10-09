@@ -173,6 +173,10 @@
     <Compile Include="Migrations\201710091346048_AddingColumnMessageType.Designer.cs">
       <DependentUpon>201710091346048_AddingColumnMessageType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710091426243_CreateDuoDateField.cs" />
+    <Compile Include="Migrations\201710091426243_CreateDuoDateField.Designer.cs">
+      <DependentUpon>201710091426243_CreateDuoDateField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BotApplication.cs" />
     <Compile Include="Models\Broadcast.cs" />
@@ -257,6 +261,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710091346048_AddingColumnMessageType.resx">
       <DependentUpon>201710091346048_AddingColumnMessageType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710091426243_CreateDuoDateField.resx">
+      <DependentUpon>201710091426243_CreateDuoDateField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

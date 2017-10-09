@@ -122,7 +122,7 @@ namespace SendBroadcast.Controllers
                         type = collection.ContentType,
                         content = JsonConvert.DeserializeObject(collection.Content)
                     },
-                    when = DateTime.Parse(DateTime.Now.AddMinutes(3).AddHours(3).GetDateTimeFormats()[114])
+                    when = collection.DuoDate.AddHours(3)
                 }
             };
 
