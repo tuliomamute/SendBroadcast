@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Criar Nova Aplicação", "Create")
 </p>
 <table class="table">
     <tr>
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.BotAccessToken)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.BotId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.BotId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.BotId })
+            @Html.ActionLink("Editar", "Edit", new { id=item.BotId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.BotId }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.BotId })
         </td>
     </tr>
 }

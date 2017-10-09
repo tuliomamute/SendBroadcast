@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -17,7 +14,7 @@
         <th>
             @Html.DisplayNameFor(model => model.BotIdentifier)
         </th>
-        <th>Send Broadcast Message</th>
+        <th>Ação</th>
     </tr>
 
     @foreach (var item in Model)
@@ -30,8 +27,7 @@
                 @Html.DisplayFor(modelItem => item.BotIdentifier)
             </td>
             <td>
-                @*@Html.ActionLink("Create Broadcast", "Create", new { botApplication = item.BotAuthorizationTokenApi})*@
-                @Html.ActionLink("Create Broadcast", "Create", "Broadcast", item, null)
+                @Html.ActionLink("Criar Broadcast", "Create", "Broadcast", item, null)
             </td>
         </tr>
     }
