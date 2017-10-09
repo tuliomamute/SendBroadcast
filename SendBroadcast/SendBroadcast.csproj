@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -164,6 +165,14 @@
     <Compile Include="Migrations\201710081708316_ChangeSomeModel.Designer.cs">
       <DependentUpon>201710081708316_ChangeSomeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710091215290_CreateRelationshipBroadcast.cs" />
+    <Compile Include="Migrations\201710091215290_CreateRelationshipBroadcast.Designer.cs">
+      <DependentUpon>201710091215290_CreateRelationshipBroadcast.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710091346048_AddingColumnMessageType.cs" />
+    <Compile Include="Migrations\201710091346048_AddingColumnMessageType.Designer.cs">
+      <DependentUpon>201710091346048_AddingColumnMessageType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\BotApplication.cs" />
     <Compile Include="Models\Broadcast.cs" />
@@ -242,6 +251,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710081708316_ChangeSomeModel.resx">
       <DependentUpon>201710081708316_ChangeSomeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710091215290_CreateRelationshipBroadcast.resx">
+      <DependentUpon>201710091215290_CreateRelationshipBroadcast.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710091346048_AddingColumnMessageType.resx">
+      <DependentUpon>201710091346048_AddingColumnMessageType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

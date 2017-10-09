@@ -16,7 +16,8 @@ namespace SendBroadcast.Models
         public string BotIdentifier { get; set; }
         [Display(Name = "Token de Acesso")]
         public string BotAccessToken { get; set; }
-        [Display(Name ="Token para Autenticação na API")]
+        [Display(Name = "Token para Autenticação na API")]
         public string BotAuthorizationTokenApi { get; set; }
+        public ICollection<Broadcast> Broadcast { get; set; }
     }
 }
