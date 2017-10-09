@@ -52,7 +52,6 @@ namespace SendBroadcast.Controllers
 
                 var stringContent = new StringContent(JsonConvert.SerializeObject(blipList), Encoding.UTF8, "application/json");
 
-                //HttpResponseMessage response = await client.GetAsync("/lists");
                 HttpResponseMessage response = await client.PostAsync($"{ConfigurationManager.AppSettings["BaseBliPUrl"]}/commands", stringContent);
 
                 if (!response.IsSuccessStatusCode)
