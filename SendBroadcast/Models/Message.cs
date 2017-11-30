@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SendBroadcast.Models
+namespace SendBroadcast.Models.Message
 {
 
     //public class Message
@@ -31,12 +32,19 @@ namespace SendBroadcast.Models
         public DateTime when { get; set; }
     }
 
+    public class Metadata
+    {
+        [JsonProperty(PropertyName = "messenger.tag")]
+        public string messengertag = "FEATURE_FUNCTIONALITY_UPDATE";
+    }
+
     public class Message
     {
         public string id { get; set; }
         public string to { get; set; }
         public string type { get; set; }
         public object content { get; set; }
+        public Metadata metadata { get; set; }
     }
 
 }

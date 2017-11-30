@@ -1,0 +1,9 @@
+1- Gerar Script a partir de uma base limpa, para a ultima versão
+Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: [MigrationName]
+
+2- Gerar Script, a partir de uma posição do banco, para a ultima
+Update-Database -Script 
+       -SourceMigration:"201502201618119_Migrations17"   
+       -TargetMigration:"201503031134340_Migrations18"
+	   
+SourceMigration: Posição atual do banco

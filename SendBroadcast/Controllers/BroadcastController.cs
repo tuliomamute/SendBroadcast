@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SendBroadcast.Models;
+using SendBroadcast.Models.DistributionLists;
+using SendBroadcast.Models.Message;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -51,6 +53,8 @@ namespace SendBroadcast.Controllers
 
                     await SendMessage(collection);
                 }
+                //await ShowDistributionListAsync(botApplication.BotAuthorizationTokenApi);
+
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -61,6 +65,11 @@ namespace SendBroadcast.Controllers
 
         #region BLiP calls
 
+        /// <summary>
+        /// Method to send a message to the BLiP, 
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         private async Task SendMessage(Broadcast collection)
         {
             using (HttpClient client = new HttpClient())
@@ -79,13 +88,14 @@ namespace SendBroadcast.Controllers
                     throw new Exception(await response.Content.ReadAsStringAsync());
             }
         }
-        /// <summary>
-        /// Method to Get all distribution list 
-        /// </summary>
-        /// <param name="botAuthorizationTokenApi"></param>
-        /// <returns></returns>
-        private async Task ShowDistributionListAsync(string botAuthorizationTokenApi)
+        #endregion
+        #region Show Distribution List
+        [HttpGet]
+        public async Task<JsonResult> DistributionList(string query, string botAuthorizationTokenApi)
         {
+            DistributionLists distributionLists = null;
+            TempData["AuthorizationToken"] = botAuthorizationTokenApi;
+
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Accept.Clear();
@@ -97,7 +107,6 @@ namespace SendBroadcast.Controllers
                     id = Guid.NewGuid().ToString(),
                     to = "postmaster@broadcast.msging.net",
                     method = OperationType.get,
-                    type = "application/vnd.iris.distribution-list+json",
                     uri = "/lists",
                 };
 
@@ -108,11 +117,14 @@ namespace SendBroadcast.Controllers
                 if (!response.IsSuccessStatusCode)
                     throw new Exception(await response.Content.ReadAsStringAsync());
 
-                ViewBag.DistributionList = new SelectList(new List<string>(), "ID", "DESCRICAO");
+                distributionLists = JsonConvert.DeserializeObject<DistributionLists>(await response.Content.ReadAsStringAsync());
+
             }
+            var manipulatedLists = distributionLists.resource.items.Where(x => x.ToLower().Contains(query.ToLower())).Select(x => new { id = x, label = x }).ToList();
+
+            return Json(manipulatedLists, JsonRequestBehavior.AllowGet);
         }
         #endregion
-
         #region Object Creation
 
         /// <summary>
@@ -122,22 +134,42 @@ namespace SendBroadcast.Controllers
         /// <returns></returns>
         private ScheduledMessage GenerateScheduledMessage(Broadcast collection)
         {
+            object content;
+
+            if (collection.ContentType == "text/plain")
+                content = collection.Content;
+            else
+                content = JsonConvert.DeserializeObject(collection.Content);
+
+            var gmtDate = collection.DuoDate.AddHours(CalculateUtcDifference());
+
             ScheduledMessage scheduledMessage = new ScheduledMessage
             {
-                resource = new Resource
+                resource = new Models.Message.Resource
                 {
                     message = new Message
                     {
                         id = Guid.NewGuid().ToString(),
                         to = collection.DistributionList,
                         type = collection.ContentType,
-                        content = JsonConvert.DeserializeObject(collection.Content)
+                        content = content,
+                        metadata = new Metadata()
                     },
-                    when = DateTime.Parse(collection.DuoDate.AddHours(3).GetDateTimeFormats()[114])
+                    when = DateTime.Parse(gmtDate.GetDateTimeFormats()[114])
                 }
             };
 
             return scheduledMessage;
+        }
+
+        /// <summary>
+        /// Method to fix summer time problem
+        /// </summary>
+        /// <returns></returns>
+        private double CalculateUtcDifference()
+        {
+            TimeSpan timeSpan = (DateTime.UtcNow - DateTime.Now);
+            return Math.Round(timeSpan.TotalHours, MidpointRounding.AwayFromZero);
         }
 
         /// <summary>

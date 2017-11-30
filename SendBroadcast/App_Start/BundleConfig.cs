@@ -9,7 +9,8 @@ namespace SendBroadcast
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -24,12 +25,14 @@ namespace SendBroadcast
                       "~/Scripts/respond.js",
                       "~/Scripts/moment-with-locales",
                       "~/Scripts/moment.js",
-                      "~/Scripts/bootstrap-datetimepicker.js"));
+                      "~/Scripts/bootstrap-datetimepicker.js",
+                      "~/Scripts/jquery.bootcomplete.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/bootstrap-datetimepicker.css"));
+                      "~/Content/bootstrap-datetimepicker.css",
+                      "~/Content/bootcomplete.css"));
         }
     }
 }
